@@ -14,14 +14,14 @@ class UserController extends Controller
         $incomingFields = $request->validate([
             'name' => 'required|string|max:255|unique:users,name',
             'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'required|string|min:8',
+            'password' => 'required|string|min:2',
         ]);
 
 
         $incomingFields['password'] = bcrypt($incomingFields['password']);
         $user = User::create($incomingFields);
         auth()->login($user);
-       return redirect('/');
+        return redirect('/');
     }
 
     public function logout()
