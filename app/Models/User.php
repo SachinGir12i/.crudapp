@@ -43,6 +43,13 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            // 'created_at' and 'updated_at' are automatically handled by Eloquent
         ];
+    }
+    public function usersPosts()
+    {
+        return $this->hasMany(Post::class, 'user_id');  
+        // This defines a one-to-many relationship where a user can have many posts.
+
     }
 }

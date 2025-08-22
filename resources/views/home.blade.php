@@ -26,6 +26,27 @@
             <button type="submit">Create Post</button>
         </form>
     </div>
+    <div style="border: 3px solid black;">
+        <h2>Your Posts</h2>
+        @if($posts->isEmpty())
+            <p>No posts available.</p>
+        @else
+            <ul>
+                @foreach($posts as $post)
+                    <li>
+                        <strong>{{ $post->title }} by {{$post->user->name}}</strong><br>
+                        {{ $post->body }}<br>
+                        <p><a href="/edit-post/{{ $post->id }}">Edit</a></p>
+                        <form action="/delete-post/{{ $post->id }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Delete</button>
+                        </form>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
     @else
     <div style="border: 3px solid black;">
         <h2>Register</h2>
